@@ -13,20 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url , include
-from django.contrib import admin
+from django.conf.urls import url
 
-from django.conf import settings
-from django.conf.urls.static import static
+from .views import (
+	FeedDetailView,
+	FeedDeleteView,
+	FeedListView,
+	FeedCreateView,
+	FeedUpdateView,
+	
 
-from .views import home
+	)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls), #
-    url(r'^$',home,name='home'),
-    url(r'^feed/',include('feed.urls',namespace = 'feed')),
-
+	url(r'^$',FeedListView.as_view(), name='list'),
+	url(r'^create/$',FeedCreateView.as_view(), name='create'),    
+    url(r'^(?P<pk>\d+)/update/$',FeedUpdateView.as_view(), name='update'),
+    url(r'^(?P<pk>\d+)/$',FeedDetailView.as_view(), name='detail'),
+    url(r'^(?P<pk>\d+)/delete/$',FeedDeleteView.as_view(), name='delete')
 ]
 
-if settings.DEBUG:
-	urlpatterns+=(static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
+ 

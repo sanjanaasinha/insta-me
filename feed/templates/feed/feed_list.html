@@ -1,0 +1,18 @@
+{% include "feed/search_form.html" %} <br\>
+{% for object in object_list %}
+ <p>{{ object.user }}<br/>
+
+ {{ object.description }}<br/>
+
+ {{ object.updated|timesince }} ago<p\><br\><br\>
+
+{% empty %}
+{% if request.GET.q %}
+<p>No Posts Found<p>
+{% else %}
+
+<p>No Posts<p>
+{% endif %}
+
+{% endfor %}
+

@@ -54,7 +54,8 @@ ROOT_URLCONF = 'instame.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [os.path.join(BASE_DIR, "templates"),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,4 +125,4 @@ STATICFILES_DIRS = [
     
 ]
 STATIC_ROOT = os.path.join(os.path.join(BASE_DIR), 'static--serve')
-MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR), 'feed/')
+#MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR), 'feed/')
