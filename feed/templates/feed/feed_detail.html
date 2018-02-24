@@ -1,7 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row" text-center>
+	<div class="col-sm-3" font size="4" >
+		<h1><p style="font-size:20px">{{ object.user}}</p></h1>
+	
+	
+		{{ object.description }}<br/><br/>
 
- <p>{{ object.user }}<br/>
+	 	{{ object.updated|timesince }} ago<p\><br\><br\>
+	</div>
+ </div>
 
- {{ object.description }}<br/>
-
- {{ object.updated|timesince }} ago<p\><br\><br\>
+{% endblock content %}
 

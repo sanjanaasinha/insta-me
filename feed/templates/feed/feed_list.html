@@ -1,18 +1,40 @@
-{% include "feed/search_form.html" %} <br\>
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class='row'>
+<div class="col-sm-3" font size="4" >
+		<h1><p style="font-size:20px">{{ request.user}}</p></h1>
+<div class='col-sm-8 col-sm-offset-2'>
 {% for object in object_list %}
- <p>{{ object.user }}<br/>
+<div class="media">
+  <div class="media-left media-middle">
+    <a href="#">
+      {% if oject.image %} 
+      <img class="media-object" src="..." alt="...">
+      {% endif %}
+    </a>
+  </div>
+  <div class="media-body">
+  	<br/>
 
- {{ object.description }}<br/>
+	 {{ object.description }} <br/>
+	 {{ object.updated|timesince }} ago<p\> | <a href ='{{object.get_absolute_url}}'>View</a>
 
- {{ object.updated|timesince }} ago<p\><br\><br\>
+  </div>
+</div>
+ <hr/>
+	{% empty %}
+	{% if request.GET.q %}
+	<p>No Posts Found<p>
+	{% else %}
 
-{% empty %}
-{% if request.GET.q %}
-<p>No Posts Found<p>
-{% else %}
+	<p>No Posts<p>
+	{% endif %}
 
-<p>No Posts<p>
-{% endif %}
-
-{% endfor %}
+	{% endfor %}
+	</div>
+	</div>
+{% endblock content %}
 

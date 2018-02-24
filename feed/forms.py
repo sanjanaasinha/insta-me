@@ -7,7 +7,8 @@ class FeedModelForm(forms.ModelForm):
 		model = Feed
 		fields = [
 			#"user",
-			"description"
+			"description",
+			#"image"
 			
 
 

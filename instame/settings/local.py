@@ -125,4 +125,6 @@ STATICFILES_DIRS = [
     
 ]
 STATIC_ROOT = os.path.join(os.path.join(BASE_DIR), 'static--serve')
-#MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR), 'feed/')
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR), 'static--media')
