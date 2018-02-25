@@ -21,12 +21,10 @@ from .views import (
 	FeedListView,
 	FeedCreateView,
 	FeedUpdateView,
-	
-
 	)
 
 urlpatterns = [
-	url(r'^$',FeedListView.as_view(), name='list'),
+	url(r'^$',FeedListView.as_view(), name='home'),
 	url(r'^create/$',FeedCreateView.as_view(), name='create'),    
     url(r'^(?P<pk>\d+)/update/$',FeedUpdateView.as_view(), name='update'),
     url(r'^(?P<pk>\d+)/$',FeedDetailView.as_view(), name='detail'),

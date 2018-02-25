@@ -15,17 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url , include
 from django.contrib import admin
-#from Feed.views import FeedListView
+from feed.views import FeedListView
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 from .views import home
+import feed
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls), #
-    url(r'^$',home,name='home'),
-    url(r'^feed/',include('feed.urls',namespace = 'feed')),
+    url(r'^$',FeedListView.as_view(),name='home'),
+    url(r'^feed/',include('feed.urls', namespace ='feed')),
 
 ]
 

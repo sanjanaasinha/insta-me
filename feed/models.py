@@ -9,8 +9,8 @@ def validate_description(value):
 		raise ValidationError("cannot be anything about bjp")
 	return value
 
-class 	Feed(models.Model):
-	user =	models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
+class Feed(models.Model):
+	user =	models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=1)
 	#image = models.FileField(null=False,blank=False)
 	
 	description	=	models.CharField(max_length=255,blank=False, validators=[validate_description])
