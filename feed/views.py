@@ -61,9 +61,8 @@ class FeedUpdateView(LoginRequiredMixin,UserOwnerMixin,UpdateView):
 class FeedDeleteView(LoginRequiredMixin,DeleteView):
 	model = Feed
 	template_name = "feed/confirm_delete.html"
-	success_url = reverse_lazy("feed:list")
-	#= reverse_lazy("feed:list")
-
+	success_url = reverse_lazy("home")
+	
 
 class FeedDetailView(DetailView):
 	#template_name="feed/detail_view.html" 

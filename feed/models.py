@@ -11,8 +11,7 @@ def validate_description(value):
 
 class Feed(models.Model):
 	user =	models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=1)
-	#image = models.FileField(null=False,blank=False)
-	
+	image = models.FileField(null=False,blank=False)
 	description	=	models.CharField(max_length=255,blank=False, validators=[validate_description])
 	updated =	models.DateTimeField(auto_now=True)
 
