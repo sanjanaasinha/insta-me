@@ -3,5 +3,9 @@
 {% block title %} 
 create post | {{ block.super }}{% endblock title %}
 {% block content %}
+<div class="row">
+<div class="col-sm-3 offset-6">
 {% include "feed/form.html" with form=form btn_title='update'%}
+</div>
+</div>
 {% endblock content %}

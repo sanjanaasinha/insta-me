@@ -36,7 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'feed.apps.FeedConfig'
+    'feed.apps.FeedConfig',
+    'rest_framework',
+    'accounts'
+    
+
 ]
 
 MIDDLEWARE = [
@@ -124,7 +128,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static--storage"),
     
 ]
-STATIC_ROOT = os.path.join(os.path.join(BASE_DIR), 'static--serve')
+
+
+STATIC_ROOT = os.path.join(os.path.join(BASE_DIR), "static--serve")
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR), 'media--serve')

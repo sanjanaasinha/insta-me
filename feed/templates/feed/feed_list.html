@@ -1,41 +1,100 @@
 {% extends "base.html" %}
 
+<{% block script %}
+	<script>
+		// function getParameterByName(name, url) {
+		//     if (!url) url = window.location.href;
+		//     name = name.replace(/[\[\]]/g, "\\$&");
+		//     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		//         results = regex.exec(url);
+		//     if (!results) return null;
+		//     if (!results[2]) return '';
+		//     return decodeURIComponent(results[2].replace(/\+/g, " "));
+		// }
+
+
+
+		// $(document).ready(function(){
+		// 	console.log("working");
+		// 	var query = getParameterByName("q")
+		// 	var feedlist = [];
+
+		// 	function parseFeed(){
+		// 		if(parseFeed==0){
+
+					
+
+		// 		}else {
+
+		// 		$.each(feedlist,function(key,value){
+		// 				var feedKey = key;
+		// 				var feedDescription = value.description;
+		// 				var feedUser = value.user;
+		// 				$("#feed-container").append(
+		// 					"<div class= \"media\"><div class=\"media-body\">"+ feedDescription + "</br>" + feedUser.username + " | " + "<a href ='#'> View </a>" +"</div></div><hr/>"
+		// 					)
+
+		// 			})
+		// 	}
+
+		// 	}
+
+		// 	$.ajax({
+		// 		url : "/api/feed",
+		// 		data: {
+		// 			"q" : query
+		// 		},
+		// 		method : 'GET',
+		// 		success: function(data){
+		// 			feedlist = data
+		// 			parseFeed()
+		// 		},
+		// 		error:function(data){
+		// 			console.log("error")
+				
+		// 			console.log(data)
+		// 		}
+		// 	})
+
+		// });
+	</script>
+{% endblock script %}  
+
 {% block content %}
+	<div class='row'> 
+		<div class="col-sm-3 col-xs-12" >
+			<h3>{{ request.user}}</h3>
+		</div>
+		<div class='col-sm-9'>
+	 
+			<!-- {% if not request.GET.q %} -->
+			 <div>
+				{% include "feed/form.html" with form=create_form action_url=create_url btn_title='update' %}
+			</div>
 
-
-<div class='row'>
-<div class="col-sm-3" font size="4" >
-		<h1><p style="font-size:20px">{{ request.user}}</p></h1>
-<div class='col-sm-8 col-sm-offset-2'>
-{% for object in object_list %}
-<div class="media">
-  <div class="media-left media-middle">
-    <a href="#">
-      {% if oject.image %} 
-      <img src="{{ feed.image.url }}" alt="image" width="300" height="200>
-      
-      {% endif %}
-    </a>
-  </div>
-  <div class="media-body">
-  	<br/>
-
-	 {{ object.description }} <br/>
-	 {{ object.updated|timesince }} ago<p\> | <a href ='{{object.get_absolute_url}}'>View</a>
-
-  </div>
-</div>
- <hr/>
-	{% empty %}
-	{% if request.GET.q %}
-	<p>No Posts Found<p>
-	{% else %}
-
-	<p>No Posts<p>
-	{% endif %}
-
-	{% endfor %}
+			<hr>
+			<!-- {% endif %} -->
+			{% for object in object_list %}
+		 	
+				<div class="media">
+				  <div class="media-left">
+				    <a href="#">
+				      {% if object.image %} 
+				      	<img src="{{ object.image.url }}" alt="image" width="300" height="200">
+				      
+				      {% endif %}
+				    </a>
+				 	<div class="media-body">
+					 	<p>{{ object.description }} | <a href ='{{object.get_absolute_url}}'>View</a><br/>
+						<p>{{ object.updated|timesince }} ago 
+					</div>
+				  </div>
+				</div>
+				
+		 	{% endfor %}
+	 	</div>
 	</div>
-	</div>
+
+
 {% endblock content %}
 

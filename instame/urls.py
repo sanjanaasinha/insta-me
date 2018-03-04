@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls), #
     url(r'^$',FeedListView.as_view(),name='home'),
     url(r'^feed/',include('feed.urls', namespace ='feed')),
+    url(r'^api/feed/',include('feed.api.urls', namespace ='feed-api')),
 
 ]
 

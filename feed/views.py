@@ -79,7 +79,7 @@ class FeedListView(ListView):
 	#queryset = Feed.objects.all()
 	def get_queryset(self, *args, **kwargs):
 		qs=Feed.objects.all()
-		print(self.request.GET)
+		
 		query = self.request.GET.get("q", None)
 		if query is not None:
 			qs=qs.filter(
@@ -92,8 +92,8 @@ class FeedListView(ListView):
 
 	def get_context_data(self, *args,**kwargs):
 		context = super(FeedListView, self).get_context_data(*args,**kwargs)
-		"""context['create_form'] = FeedModelForm
-		context['create_url'] = reverse_lazy ('feed:create')"""
+		context['create_form'] = FeedModelForm
+		context['create_url'] = reverse_lazy ('feed:create')
 		return context
 
 	def feed_detail_view(request, pk= None):
