@@ -2,61 +2,95 @@
 
 <{% block script %}
 	<script>
-		// function getParameterByName(name, url) {
-		//     if (!url) url = window.location.href;
-		//     name = name.replace(/[\[\]]/g, "\\$&");
-		//     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-		//         results = regex.exec(url);
-		//     if (!results) return null;
-		//     if (!results[2]) return '';
-		//     return decodeURIComponent(results[2].replace(/\+/g, " "));
-		// }
+		function getParameterByName(name, url) {
+		    if (!url) {
+		    	url = window.location.href;
+		    }
+		    name = name.replace(/[\[\]]/g, "\\$&");
+		    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		        results = regex.exec(url);
+		    if (!results) return null;
+		    if (!results[2]) return '';
+		    return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
 
 
 
-		// $(document).ready(function(){
-		// 	console.log("working");
-		// 	var query = getParameterByName("q")
-		// 	var feedlist = [];
+		$(document).ready(function(){
+			console.log("working");
+			var query = getParameterByName("q")
+			var feedList = [];
 
-		// 	function parseFeed(){
-		// 		if(parseFeed==0){
-
-					
-
-		// 		}else {
-
-		// 		$.each(feedlist,function(key,value){
-		// 				var feedKey = key;
-		// 				var feedDescription = value.description;
-		// 				var feedUser = value.user;
-		// 				$("#feed-container").append(
-		// 					"<div class= \"media\"><div class=\"media-body\">"+ feedDescription + "</br>" + feedUser.username + " | " + "<a href ='#'> View </a>" +"</div></div><hr/>"
-		// 					)
-
-		// 			})
-		// 	}
-
-		// 	}
-
-		// 	$.ajax({
-		// 		url : "/api/feed",
-		// 		data: {
-		// 			"q" : query
-		// 		},
-		// 		method : 'GET',
-		// 		success: function(data){
-		// 			feedlist = data
-		// 			parseFeed()
-		// 		},
-		// 		error:function(data){
-		// 			console.log("error")
+			var parseFeed = function(){
+				console.log('vvvvv')
+				if(feedList === 0) {
+					$("#feed-container").text("no posts")
 				
-		// 			console.log(data)
-		// 		}
-		// 	})
 
-		// });
+				} else {
+					$.each(feedList, function(index, feed) {
+							var feedKey = index;
+							var feedDescription = feed.description;
+							var feedUser = feed.user;
+							console.log(feed);
+							$("#feed-container").append(
+								"<hr/><div class= 'media'><div class='media-left'><img src=" + feed.image +" width='300' height='200'><div class='media-body'><p/>" + feedDescription + "| <a href =" + feed.image +">View</a><br/></div></div></div>"
+							);
+								
+						});
+				}
+			};
+
+			(function fetchPosts() {
+ 				console.log("fetching...")
+				$.ajax({
+					url : "/api/feed",
+					data: {
+						"q" : query
+					},
+					method : 'GET',
+					success: function(data){
+						console.log('data', data);
+						feedList = data
+						parseFeed()
+					},
+					error:function(data){
+						console.log("error")
+					
+						console.log(data)
+					}
+				})
+			})();
+
+		});
+
+		$("#update-form").submit(function(event) {
+			event.preventDefault()
+			var formData = new FormData(this);
+			
+			$.ajax({
+					url : "/api/feed/create/",
+					data: formData,
+					method : "POST",
+					processData: false,
+					contentType: false,
+					success: function(data){
+						$('#id_image').val('')
+						$('#id_description').val('');
+
+						$("#feed-container").append(
+							"<hr/><div class= 'media'><div class='media-left'><img src=" + data.image +" width='300' height='200'><div class='media-body'><p/>" + data.description + "| <a href =" + data.image +">View</a><br/></div></div></div>"
+						)
+
+					},
+					error:function(data){
+						console.log("error")
+					
+						console.log(data.status)
+					}
+				})
+			
+		});
 	</script>
 {% endblock script %}  
 
@@ -69,12 +103,14 @@
 	 
 			<!-- {% if not request.GET.q %} -->
 			 <div>
-				{% include "feed/form.html" with form=create_form action_url=create_url btn_title='update' %}
+				{% include "feed/form.html" with form=create_form action_url=create_url btn_title='update' form_id='update-form' %}
 			</div>
 
 			<hr>
 			<!-- {% endif %} -->
-			{% for object in object_list %}
+			<div id="feed-container">
+			</div>
+<!-- 			{% for object in object_list %}
 		 	
 				<div class="media">
 				  <div class="media-left">
@@ -91,7 +127,12 @@
 				  </div>
 				</div>
 				
-		 	{% endfor %}
+		 	{% endfor %} -->
+
+		 	
+
+
+
 	 	</div>
 	</div>
 

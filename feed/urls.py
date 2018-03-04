@@ -12,7 +12,7 @@ from .views import (
 	)
 
 urlpatterns = [
-    url(r'^$',FeedListView.as_view(), name='list'),
+    url(r'^$',RedirectView.as_view(url="/")),
 	url(r'^search$',FeedListView.as_view(), name='home'),
 	url(r'^create/$',FeedCreateView.as_view(), name='create'),    
     url(r'^(?P<pk>\d+)/update/$',FeedUpdateView.as_view(), name='update'),
